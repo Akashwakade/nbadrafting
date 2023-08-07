@@ -28,7 +28,7 @@ function displayPlayers(players) {
         card.innerHTML = `
             <img src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png" alt="${player.first_name} ${player.last_name}">
             <h3>${player.first_name} ${player.last_name}</h3>
-            <p>Position: ${player.position}</p>
+            <p>Position:${player.position}</p>
             <button class="team-details-btn" data-team-id="${player.team.id}">Team Details</button>
         `;
         playersContainer.appendChild(card);
@@ -37,9 +37,10 @@ function displayPlayers(players) {
 
 //display pagination
 function displayPagination(totalPages) {
-    pagination.innerHTML = '';
+     pagination.innerHTML = '';
     for (let i = 1; i <= totalPages; i++) {
-        const pageLink = document.createElement('span');
+        const pageLink = document.createElement('button');
+       
         pageLink.classList.add('page-link');
         pageLink.textContent = i;
         if (i === currentPage) {
@@ -56,7 +57,10 @@ function displayPagination(totalPages) {
 // Fetch and display players based on current page
 async function fetchAndDisplayPlayers() {
     const data = await fetchPlayers(currentPage);
-    const totalPages = Math.ceil(data.meta.total / playersPerPage);
+     const totalPages = 10;
+
+    console.log(data)
+    console.log(totalPages)
     displayPlayers(data.data);
     displayPagination(totalPages);
 }
@@ -91,21 +95,7 @@ playersContainer.addEventListener('click', async (event) => {
 
 
 
-        function displayPlayers(teamData) {
-            playersContainer.innerHTML = '';
-            teamData.forEach(player => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.innerHTML = `
-                    <img src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png" alt="${player.first_name} ${player.last_name}">
-                    <h3>${player.first_name} ${player.last_name}</h3>
-                    <p>Position: ${player.position}</p>
-                    <button class="team-details-btn" data-team-id="${player.team.id}">Team Details</button>
-                    <h1>Team Details</h1>
-                `;
-                playersContainer.appendChild(card);
-            });
-        }
+       
 
         
         
